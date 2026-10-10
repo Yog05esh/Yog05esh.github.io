@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # STRATA — Operational Intelligence Console (prototype)
 
 The Industry Games 2026 · built for Altygen Biopharm (District 05: Intelligent Business Operations & Customer Engagement) · Team STRATA: Arihant Chordia · Yogesh R Mehta.
@@ -17,3 +18,6 @@ Other scripts: `npm run seed`, `npm run eval`, `npm run check` (hex lint, ruff, 
 - `apps/web/`: Next.js console (Altygen-brand tokens in `src/styles/tokens.css`, the only colour source).
 - `contracts/`: frozen schema, signal catalog, scenarios, engagement rules, design tokens.
 - `docs/`: blueprint, API contract, REVIEW_REPORT, DEFEND_IT, DECK_DELTAS, ledger, cut log, open questions.
+=======
+# Yog05esh.github.io
+>>>>>>> 5f379c5ec77907ea2a3951342814e4a408bc0762

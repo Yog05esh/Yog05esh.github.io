@@ -24,7 +24,7 @@ export function DraftCard({ draft, onChip }: { draft: WbDraft; onChip: (id: stri
         <p className="case-prose" style={{ whiteSpace: "pre-wrap" }}>{draft.body}</p>
         {draft.evidence_ids?.length ? <Chips ids={draft.evidence_ids} onChip={onChip} /> : null}
       </div>
-      <footer className="draft-card__foot caption">Simulated — not sent</footer>
+      <footer className="draft-card__foot caption">Simulated - not sent</footer>
     </section>
   );
 }

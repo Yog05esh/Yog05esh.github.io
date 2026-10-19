@@ -1,4 +1,4 @@
-# web-shell-1 — UI kit + shell (for page builders)
+# web-shell-1 - UI kit + shell (for page builders)
 Run: `cd apps/web && npm run dev` → http://localhost:3000 (engine via rewrite `/api/engine/*` → `ENGINE_URL` default `http://127.0.0.1:8000`). Checks: `npx tsc --noEmit`, `npm run build`, `node scripts/lint-hex.mjs` (repo root). Pages live in `src/app/app/<route>/page.tsx`; mark them `"use client"` when using hooks. Shell, persona and top bar already wrap every `/app/*` page; start each page with `<PageHeader>`.
 
 **API** `@/lib/api/client`: `apiGet<T>(path)`, `apiPost<T>(path, body?)`, `apiPatch<T>(path, body?)` (throw `ApiError{status, message, body}`; `detail` from FastAPI becomes the message) · `useApi<T>(path: string | null) → {data: T|null, error: Error|null, loading, reload()}` (null = skip; refetches on path change) · `qs(path, {k: v})` builds query strings and skips empty values. Paths are engine paths, e.g. `useApi<RisksResponse>(qs("/risks", {persona}))`.

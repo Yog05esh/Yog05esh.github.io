@@ -1,4 +1,4 @@
-# STRATA — phase plan and priority hierarchy (night build, 2026-10-09)
+# STRATA - phase plan and priority hierarchy (night build, 2026-10-09)
 
 Owner: Arihant Chordia · Yogesh R Mehta. Lead + parallel agent lanes are described in `NIGHT_BUILD.md`.
 

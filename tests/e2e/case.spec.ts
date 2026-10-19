@@ -3,7 +3,7 @@ import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { ENGINE, collectConsoleErrors, resetEngine, setPersona } from "../shared/engine";
 
-// Lane B (L5): the case file is the workflow in one place — stage tracker, three tabs, consequence panel,
+// Lane B (L5): the case file is the workflow in one place - stage tracker, three tabs, consequence panel,
 // decision result, case timeline. Runs against the shared dev servers; resets engine state before and after.
 const SCREENS = join(process.cwd(), "tests", "screens");
 mkdirSync(SCREENS, { recursive: true });
@@ -57,7 +57,7 @@ test("case file: detect -> investigate -> consequence -> approve -> result -> ti
   const panel = page.getByTestId("consequence-panel");
   await expect(panel).toBeVisible();
   await expect(page.getByTestId("diagram-consequence")).toBeVisible();
-  await expect(page.getByTestId("expected-result")).toHaveText(/^(Last time \(INC-017|No basis yet — STRATA will record the result and learn from it\.)/);
+  await expect(page.getByTestId("expected-result")).toHaveText(/^(Last time \(INC-017|No basis yet - STRATA will record the result and learn from it\.)/);
   await expect(panel).toContainText("a reason is required");
   await shot(page, "03-todo-consequence");
 
@@ -96,7 +96,7 @@ test("QA-routed case shows the route-only line in the consequence panel", async 
   const panel = page.getByTestId("consequence-panel");
   await expect(panel).toBeVisible();
   await expect(panel.getByTestId("route-only")).toHaveText("Route-only: QA Head approves, a second QA reviewer confirms (four-eyes). STRATA gives no clinical advice.");
-  await expect(page.getByTestId("expected-result")).toHaveText(/^(Last time \(INC-\d+|No basis yet — STRATA will record the result and learn from it\.)/);
+  await expect(page.getByTestId("expected-result")).toHaveText(/^(Last time \(INC-\d+|No basis yet - STRATA will record the result and learn from it\.)/);
   await shot(page, "05-qa-route-only");
 });
 

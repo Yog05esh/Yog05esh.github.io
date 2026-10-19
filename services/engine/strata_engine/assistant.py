@@ -519,7 +519,7 @@ def _fmt_inr(v: Any) -> str:
 def _line(it: dict[str, Any]) -> str:
     who = f" · {it['account_name']}" if it.get("account_name") else (f" · {it['region']}" if it.get("region") else "")
     reg_note = " · routed to QA head" if it.get("regulatory_sensitive") else ""
-    return f"- **{it['title']}**{who} — {it['severity']}, risk {it['risk_score']}, exposure {_fmt_inr(it['revenue_exposure_inr'])}{reg_note} [{it['ref']}]"
+    return f"- **{it['title']}**{who} - {it['severity']}, risk {it['risk_score']}, exposure {_fmt_inr(it['revenue_exposure_inr'])}{reg_note} [{it['ref']}]"
 
 
 HELP = ("I answer from STRATA's own data and cite what I used. Try:\n"
@@ -581,7 +581,7 @@ def keyless_answer(question: str, persona: str, page: str | None, reg: Registry)
         a = run_tool("get_account", {"account_id": aid}, reg, persona)
         if a.get("error"):
             return f"{DONT_KNOW} {a['error']}"
-        lines = [f"**{a['name']}** [{a['account_id']}] — {a['type']}, {a['region']}, tier {a['tier']}.",
+        lines = [f"**{a['name']}** [{a['account_id']}] - {a['type']}, {a['region']}, tier {a['tier']}.",
                  f"Baseline 12-week order value {_fmt_inr(a['value_12w_inr'])}."]
         if a["next_best_actions"]:
             lines.append("Next best actions:\n" + "\n".join(f"- {x['text']} ({x['owner_role']}) [{', '.join(x['evidence_ids'])}]" for x in a["next_best_actions"]))
@@ -606,13 +606,13 @@ def keyless_answer(question: str, persona: str, page: str | None, reg: Registry)
         sc = s["scenarios"][:5]
         if not sc:
             return "No simulation scenarios are loaded yet."
-        return "Scenarios you can run in the Lab (outcomes are illustrative):\n" + "\n".join(f"- **{x['title']}** — {x.get('one_liner') or ''} [{x['id']}]" for x in sc)
+        return "Scenarios you can run in the Lab (outcomes are illustrative):\n" + "\n".join(f"- **{x['title']}** - {x.get('one_liner') or ''} [{x['id']}]" for x in sc)
 
     if re.search(r"\b(level|levels|deadline|deadlines|waiting|approval|approvals|decide|decision)\b", ql):
         lv = run_tool("get_agentic_levels", {}, reg, persona)
         if not lv.get("error") and lv.get("items"):
             items = lv["items"][:5]
-            return "Cases by risk level:\n" + "\n".join(f"- **{x['title']}** — level {x['level']} {x.get('level_label') or ''}, {str(x.get('status') or '').replace('_', ' ')} [{x['ref']}]" for x in items)
+            return "Cases by risk level:\n" + "\n".join(f"- **{x['title']}** - level {x['level']} {x.get('level_label') or ''}, {str(x.get('status') or '').replace('_', ' ')} [{x['ref']}]" for x in items)
 
     if re.search(r"\b(opportunit\w*|growth|upsell|cross)\b", ql):
         p = run_tool("list_problems", {"limit": 3, "kind": "opportunity"}, reg, persona)
@@ -646,7 +646,7 @@ def keyless_answer(question: str, persona: str, page: str | None, reg: Registry)
     mem_q = re.sub(r"^(search|find|look up)\s+(the\s+)?memory\s+(for|about)\s+", "", q, flags=re.IGNORECASE)
     hits = run_tool("search_memory", {"query": mem_q}, reg, persona).get("items", [])[:3]
     if hits:
-        return "From memory:\n" + "\n".join(f"- **{h['title']}** — {h['summary'][:140].rstrip()}… [{h['ref']}]" for h in hits)
+        return "From memory:\n" + "\n".join(f"- **{h['title']}** - {h['summary'][:140].rstrip()}… [{h['ref']}]" for h in hits)
     return f"{DONT_KNOW} Try asking about today's priorities, a case reference, an account number or business health."
 
 

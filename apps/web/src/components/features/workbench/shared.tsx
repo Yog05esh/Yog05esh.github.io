@@ -86,7 +86,7 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/** "4 h", "36 h", "14 d" — plan due times are given in hours by the engine. */
+/** "4 h", "36 h", "14 d" - plan due times are given in hours by the engine. */
 export function fmtHours(h: number): string {
   return h >= 48 ? `${fmtNum(h / 24, h % 24 ? 1 : 0)} d` : `${fmtNum(h)} h`;
 }

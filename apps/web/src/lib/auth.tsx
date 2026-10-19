@@ -8,6 +8,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { PersonaKey } from "@/lib/api/types";
 import { ApiError, apiGet, apiPost } from "@/lib/api/client";
+import { getDemoUser, isDemoMode, setDemoUser } from "@/lib/demo-api";
 
 export interface AuthUser {
   id: string;
@@ -76,6 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const clear = useCallback(() => {
     generation.current += 1;
     writeToken(null);
+    if (isDemoMode()) setDemoUser(null);
     setToken(null);
     setUser(null);
   }, []);
@@ -83,6 +85,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   /** Re-read the signed-in user. 401/403 → the token is dead, sign out locally. Network errors keep the token. */
   const load = useCallback(async (t: string | null) => {
     const gen = ++generation.current;
+    if (isDemoMode()) {
+      const demoUser = getDemoUser();
+      const demoToken = demoUser ? `demo-${demoUser.id}` : null;
+      writeToken(demoToken);
+      setToken(demoToken);
+      setUser(demoUser);
+      setLoading(false);
+      return;
+    }
     if (!t) { setToken(null); setUser(null); setLoading(false); return; }
     setToken(t);
     try {
@@ -111,6 +122,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const setSession = useCallback((t: string, u: AuthUser) => {
     generation.current += 1;
     writeToken(t);
+    if (isDemoMode()) setDemoUser(u);
     setToken(t);
     setUser(u);
     setLoading(false);

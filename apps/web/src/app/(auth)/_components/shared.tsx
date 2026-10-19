@@ -139,7 +139,7 @@ export function passwordScore(pw: string): 0 | 1 | 2 | 3 | 4 {
   return s >= 3 ? 4 : s >= 1 ? 3 : 2;
 }
 
-const STRENGTH = ["", "Too short — use at least 8 characters", "Weak — add numbers or symbols", "Fair — longer is stronger", "Strong"];
+const STRENGTH = ["", "Too short - use at least 8 characters", "Weak - add numbers or symbols", "Fair - longer is stronger", "Strong"];
 
 export function PasswordStrength({ password }: { password: string }) {
   const score = passwordScore(password);

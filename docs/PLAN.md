@@ -1,4 +1,4 @@
-# PLAN (orchestrator) — 9 Oct 2026, started 12:07 IST, hard stop 15:00
+# PLAN (orchestrator) - 9 Oct 2026, started 12:07 IST, hard stop 15:00
 
 **Scope tier: Core+ (time-boxed).** About 3 hours of build time were left at kickoff, so the Compact tier (10–12 h) was not realistic. Built: Core (Phases 0–3 on the hero path) plus the cheap Compact items that carry the District 05 brief: A10 notes, A11 opportunities, A21 accounts, A22 routines, A3 blast radius, A4 alert budget, A2 silent period, A7 QA routing, A12-lite Lab, A17 evaluation (seed A + hold-out B).
 

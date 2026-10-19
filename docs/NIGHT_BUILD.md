@@ -1,4 +1,4 @@
-# Night build — shared contract (read fully before touching code)
+# Night build - shared contract (read fully before touching code)
 
 This file supersedes the lane ownership in `AGENTS.md` §6 for the night build. The honesty rules in `AGENTS.md` §2
 still apply (provenance labels; simulation outcomes are `illustrative`; LLM text never invents numbers), with these
@@ -51,7 +51,7 @@ still apply (provenance labels; simulation outcomes are `illustrative`; LLM text
 
 ## Shared web interfaces (stubs exist; owners replace the bodies, keep names/props)
 - `@/lib/auth` → `AuthProvider`, `useAuth(): {user, token, loading, login, logout, refresh, setSession}`, `getToken()`, `AuthUser`.
-- `@/components/ui/Loader` → `StrataLoader({label?, size?: "sm"|"md"|"lg", fullscreen?})` — the animated STRATA loop.
+- `@/components/ui/Loader` → `StrataLoader({label?, size?: "sm"|"md"|"lg", fullscreen?})` - the animated STRATA loop.
 - `@/components/features/assistant` → `AssistantDock()` (shell mounts it once, bottom-right).
 - `@/components/features/agentic` → `RiskLevelBadge({level, compact?})`, `DeadlineCountdown({deadline, mode?})`, `type RiskLevel`.
 - `@/lib/theme` → `ThemeProvider`, `useTheme(): {theme, resolved, setTheme}`. `PolicyEditor()` also exported from agentic.
@@ -73,7 +73,7 @@ Auth header for new endpoints: `Authorization: Bearer <token>`. Web calls go thr
 - `POST /admin/companies {name, industry, code?}` header `X-Admin-Key: $STRATA_ADMIN_KEY` → `{company}` (we assign codes)
 - `GET  /mail/outbox` (business_head) → last 50 mails `{to, subject, sent_via:"smtp"|"outbox", at}`
 - `dev_code` is returned only when SMTP is not configured (keyless demo). Codes: 6 digits, 10 min, 5 attempts.
-- `mailer.notify(company_id, roles:list[str], subject, body, *, min_pref="email_alerts")` — used by agentic.
+- `mailer.notify(company_id, roles:list[str], subject, body, *, min_pref="email_alerts")` - used by agentic.
 - `user` = `AuthUser` above (`company_code` only for business_head).
 
 ### agentic.py (levels: 1 Low · 2 Moderate (default) · 3 Elevated · 4 High · 5 Critical)

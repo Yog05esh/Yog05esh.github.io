@@ -1,4 +1,4 @@
-/* auth-web lane: landing sign-in, (auth) pages, /app/settings. Tokens only — dark mode comes from token overrides. */
+/* auth-web lane: landing sign-in, (auth) pages, /app/settings. Tokens only - dark mode comes from token overrides. */
 
 /* ------------------------------------------------------------------ */
 /* Landing                                                             */
@@ -306,6 +306,10 @@
 .switch:disabled { opacity: .6; cursor: progress; }
 
 /* join code */
+.auth-demo-accounts { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: var(--sp-2); margin-top: var(--sp-3); }
+.auth-demo-account { display: grid; gap: 3px; padding: var(--sp-3); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--ink-1); text-align: left; cursor: pointer; }
+.auth-demo-account:hover, .auth-demo-account:focus-visible { border-color: var(--indigo-500); background: var(--indigo-50); }
+.auth-demo-account span { color: var(--ink-3); font: var(--fs-11)/1.35 var(--font-mono); overflow-wrap: anywhere; }
 .joincode { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-4); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface-2); }
 .joincode__label { font-family: var(--font-brand); font-weight: 600; font-size: var(--fs-11); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
 .joincode__row { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; }

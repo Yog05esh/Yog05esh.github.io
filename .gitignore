@@ -4,9 +4,14 @@ node_modules/
 __pycache__/
 *.pyc
 .env
+.env.local
+.env.*
+!.env.example
 data/store/
 !data/snapshots/
 apps/web/tsconfig.tsbuildinfo
+apps/web/build.log
+demo-verify.log
 tests/screens/*.tmp
 tests/e2e/.results/
 test-results/

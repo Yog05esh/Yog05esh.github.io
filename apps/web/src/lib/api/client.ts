@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { demoGet, demoWrite, isDemoMode } from "@/lib/demo-api";
 
 /** All engine calls go through the Next.js rewrite /api/engine/:path* → ENGINE_URL. */
 export const API_BASE = "/api/engine";
@@ -36,6 +37,14 @@ export function authHeaders(json = false): Record<string, string> {
 }
 
 async function request<T>(method: string, path: string, body?: unknown, signal?: AbortSignal): Promise<T> {
+  if (isDemoMode()) {
+    try {
+      return method === "GET" ? await demoGet<T>(path, signal) : await demoWrite<T>(method, path, body);
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "AbortError") throw e;
+      throw new ApiError(0, e instanceof Error ? e.message : String(e), null);
+    }
+  }
   let res: Response;
   try {
     res = await fetch(url(path), {

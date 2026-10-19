@@ -6,6 +6,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { apiPatch, useApi } from "@/lib/api/client";
 import { useAuth, type AuthUser } from "@/lib/auth";
 import { useTheme, type ThemePref } from "@/lib/theme";
+import { isDemoMode, resetDemoData } from "@/lib/demo-api";
 import { fmtDate } from "@/lib/format";
 import { Button, Card, DataTable, EmptyState, ErrorState, Loading, PageTemplate, StatusPill, announce } from "@/components/ui";
 import { PolicyEditor } from "@/components/features/agentic";
@@ -105,6 +106,8 @@ export default function SettingsPage() {
           )}
         </Card>
 
+        {isDemoMode() ? <DemoDataReset /> : null}
+
         {isHead ? (
           <>
             <Card title="Agent decision deadlines">
@@ -141,6 +144,29 @@ export default function SettingsPage() {
         ) : null}
       </div>
     </PageTemplate>
+  );
+}
+
+function DemoDataReset() {
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const reset = async () => {
+    if (!window.confirm("Reset your saved demo changes in this browser? Recorded fixtures will remain.")) return;
+    setBusy(true); setMessage(null);
+    try {
+      await resetDemoData();
+      setMessage("Your saved demo changes were reset. Recorded fixtures are unchanged.");
+      announce("Demo data reset.");
+    } catch (error) {
+      setMessage(error instanceof Error ? `Could not reset demo data: ${error.message}` : "Could not reset demo data.");
+    } finally { setBusy(false); }
+  };
+  return (
+    <Card title="Demo data">
+      <p className="caption settings__intro">This public demo is sandboxed. Reset removes only changes made by your current demo account; it never changes another visitor&apos;s data.</p>
+      <Button variant="secondary" onClick={() => void reset()} disabled={busy}>{busy ? "Resetting..." : "Reset my demo data"}</Button>
+      {message ? <p className="caption settings__note" role="status">{message}</p> : null}
+    </Card>
   );
 }
 

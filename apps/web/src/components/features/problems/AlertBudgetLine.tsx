@@ -8,7 +8,7 @@ import { fmtNum } from "@/lib/format";
 import { personaLabel } from "@/lib/persona";
 import type { RisksPayload } from "./model";
 
-/** Alert Budget as one sentence: "7 shown, 5 held back for your role — see why" (opens a drawer with the reasons). */
+/** Alert Budget as one sentence: "7 shown, 5 held back for your role - see why" (opens a drawer with the reasons). */
 export function AlertBudgetLine({ data, persona }: { data: RisksPayload | null; persona: string }) {
   const [open, setOpen] = useState(false);
   if (!data) return null;
@@ -21,7 +21,7 @@ export function AlertBudgetLine({ data, persona }: { data: RisksPayload | null; 
           <strong className="num">{fmtNum(data.shown)}</strong> shown, <strong className="num">{fmtNum(held)}</strong> held back for your role ({role})
         </span>
         <TermHint term="alert_budget" />
-        <span aria-hidden="true">—</span>
+        <span aria-hidden="true">-</span>
         <button type="button" className="link-button" onClick={() => setOpen(true)} aria-haspopup="dialog">see why</button>
       </p>
       <Drawer open={open} onClose={() => setOpen(false)} title={`Alert Budget for ${role}`}>

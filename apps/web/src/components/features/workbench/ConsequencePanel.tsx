@@ -4,7 +4,7 @@ import { ConsequenceFlow } from "@/components/diagrams/ConsequenceFlow";
 import { humanize } from "@/lib/format";
 import { memoryAuthorLabel, type WbIncident, type WbPlan } from "./shared";
 
-export const NO_BASIS = "No basis yet — STRATA will record the result and learn from it.";
+export const NO_BASIS = "No basis yet - STRATA will record the result and learn from it.";
 
 /**
  * Expected result, from real data only: the most similar memory match with the SAME cause as this case

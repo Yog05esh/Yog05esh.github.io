@@ -1,4 +1,4 @@
-# Lane A handoff — Home, briefing, guided path, how-it-works, shell nav
+# Lane A handoff - Home, briefing, guided path, how-it-works, shell nav
 **Files:** `apps/web/src/app/app/page.tsx` (Home), `app/app/briefing/page.tsx` (new), `app/app/how-it-works/page.tsx` (new), `components/shell/{nav.ts,Sidebar.tsx,TopBar.tsx,AppShell.tsx,CommandPalette.tsx}`, `components/features/home/*`, `components/features/guided/*`, `components/diagrams/{LoopDiagram,ArchitectureDiagram}.tsx`, `styles/lanes/home.css`, `tests/e2e/home.spec.ts`.
 **What changed**
 - Home `/app`: `PageTemplate` "home" with a welcome card, a persona picker (6 radios, one line each, mirrors the engine's `visible_to`), 6 path cards and the clickable `LoopDiagram` (6 SVG links). It has no metrics, charts or news. "Understand one problem" fetches `/briefing` only on click. "Take the guided path" shows only once flags have loaded and include A23.

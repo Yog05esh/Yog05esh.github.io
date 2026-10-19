@@ -104,6 +104,6 @@
    .btn--ghost     transparent, ink-2
    .btn--danger    white fill, crimson-700 text + 1px crimson border   (Reject)
    .pill           22px high, dot + label, bg from --sev-*-bg, fg from --sev-*-fg
-   .caption        12px, --ink-3, weight 400, max-width 62ch — THE under-every-number explanation
+   .caption        12px, --ink-3, weight 400, max-width 62ch - THE under-every-number explanation
    .nav-section    11px Poppins 600 uppercase letter-spacing .08em, indigo-200 on sidebar
    .nav-item       36px, 3px left rule = crimson-600 when active (the one deliberate crimson accent in chrome) */

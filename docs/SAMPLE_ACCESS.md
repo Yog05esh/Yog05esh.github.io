@@ -6,7 +6,7 @@ Shared local-demo password: `Strata-Demo-2026`
 
 Each company has its own generated data (240 accounts, about 135k orders, 40k support tickets, 14k complaints over two years) in its own industry wording, plus its own cases, approvals and audit trail. Signing in decides which company you see. Regenerate with `npm run seed`.
 
-## Company 1 — Renalis Pharma Distribution (fictional)
+## Company 1 - Renalis Pharma Distribution (fictional)
 
 - Company ID: `co_renalis`
 - Join code: `RNL7K2`
@@ -21,7 +21,7 @@ Each company has its own generated data (240 accounts, about 135k orders, 40k su
 | `demo_support_manager` | Support Manager | Support Manager (demo) | `support@demo.strata.local` |
 | `demo_qa_head` | QA Head | QA Head (demo) | `qa@demo.strata.local` |
 
-## Company 2 — BrightCart Consumer Goods (fictional)
+## Company 2 - BrightCart Consumer Goods (fictional)
 
 - Company ID: `co_brightcart`
 - Join code: `FMC8Q4`
@@ -36,7 +36,7 @@ Each company has its own generated data (240 accounts, about 135k orders, 40k su
 | `bc_support` | Support Manager | BC Support | `support@brightcart.demo.strata.local` |
 | `bc_qa` | QA Head | BC QA Head | `qa@brightcart.demo.strata.local` |
 
-## Company 3 — Meridian Freight & Logistics (fictional)
+## Company 3 - Meridian Freight & Logistics (fictional)
 
 - Company ID: `co_meridian`
 - Join code: `LGX5T9`

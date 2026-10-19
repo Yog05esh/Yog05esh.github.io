@@ -7,8 +7,11 @@ import { IconArrowRight, IconChevronDown, IconLogout, IconMail, IconUserCircle }
 import { ApiError, apiGet, apiPost } from "@/lib/api/client";
 import { GoogleButton } from "./GoogleButton";
 import { useAuth, type SessionResponse } from "@/lib/auth";
+import { DEMO_LOGIN_USERS, isDemoBuild } from "@/lib/demo";
+import { supabaseConfigured, supabaseConfigurationMessage } from "@/lib/supabase";
 import { Button } from "@/components/ui/Button";
 import { announce } from "@/components/ui/states";
+import { DemoNotice } from "@/components/DemoNotice";
 import {
   CodeInput, DevCodeNote, FormError, PasswordField, ResendButton, TextField,
   friendlyError, isEmail, readStashedEmail, safeNext, stashEmail, useCooldown, withNext,
@@ -209,6 +212,25 @@ export function SignInCard({ portal = "user" }: { portal?: PortalKind }) {
         <span className="af-hint">New to STRATA?</span>{" "}
         <Link href={withNext("/register", next)} className="af-link">Join your company with its code</Link>
       </div>
+      {isDemoBuild ? (
+        <div className="auth-card__foot" aria-label="One-click demo roles">
+          {!supabaseConfigured ? <p className="af-hint">{supabaseConfigurationMessage}</p> : null}
+          <p className="af-hint">Quick demo access. These are synthetic accounts stored in this browser only. Password for every account: <code>demo-only</code>.</p>
+          <div className="auth-demo-accounts">
+            {DEMO_LOGIN_USERS.map((demo) => (
+              <button key={demo.role} type="button" className="auth-demo-account" onClick={() => {
+                setSession(`demo-${demo.id}`, demo);
+                finish(demo.name);
+              }}>
+                <strong>{demo.role_label}</strong>
+                <span>{demo.email}</span>
+                <span>Role: {demo.role_label}</span>
+              </button>
+            ))}
+          </div>
+          <DemoNotice feature="console" codePath="apps/web/src/lib/demo-api.ts" />
+        </div>
+      ) : null}
     </section>
   );
 }

@@ -19,7 +19,7 @@ interface OutcomeRow {
 }
 interface MemoryOutcome { ref: string; kind: string; title: string; body: string; cause: string | null; outcome: string; authored_by: string; resolution?: string }
 
-const CAVEAT = "Scripted counterfactual from the Simulation Lab's fast-forward — not a measured result.";
+const CAVEAT = "Scripted counterfactual from the Simulation Lab's fast-forward - not a measured result.";
 
 export default function OutcomesPage() {
   const { mode } = useViewMode();
@@ -36,9 +36,9 @@ export default function OutcomesPage() {
     { accessorKey: "ref", header: "Incident", cell: (c) => <Link className="mono" href={`/app/incidents/${c.getValue<string>()}`} onClick={(e) => e.stopPropagation()}>{c.getValue<string>()}</Link> },
     {
       id: "category", header: "Category", accessorFn: (o) => byRef.get(o.ref)?.category ?? "",
-      cell: (c) => { const inc = byRef.get(c.row.original.ref); return inc ? <CategoryChip category={inc.category} size="sm" /> : <span className="muted">—</span>; },
+      cell: (c) => { const inc = byRef.get(c.row.original.ref); return inc ? <CategoryChip category={inc.category} size="sm" /> : <span className="muted">-</span>; },
     },
-    { id: "stage", header: "Stage", accessorFn: (o) => byRef.get(o.ref)?.stage ?? "", cell: (c) => { const inc = byRef.get(c.row.original.ref); return inc ? stageText(inc.stage) : "—"; } },
+    { id: "stage", header: "Stage", accessorFn: (o) => byRef.get(o.ref)?.stage ?? "", cell: (c) => { const inc = byRef.get(c.row.original.ref); return inc ? stageText(inc.stage) : "-"; } },
     { accessorKey: "kpi", header: "KPI" },
     { accessorKey: "before_value", header: "Before", meta: { numeric: true }, cell: (c) => fmtPct(c.getValue<number>()) },
     { accessorKey: "after_value", header: "After", meta: { numeric: true }, cell: (c) => fmtPct(c.getValue<number>()) },

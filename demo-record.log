@@ -1,0 +1,5 @@
+
+> demo:record
+> node scripts/record-static-demo.mjs
+
+Saved docs/media/strata-demo.webm and five gallery screenshots.

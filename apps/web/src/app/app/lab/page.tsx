@@ -12,6 +12,7 @@ import { LiveLoop } from "@/components/features/lab/LiveLoop";
 import { ScenarioPicker } from "@/components/features/lab/ScenarioPicker";
 import { SimPlayer } from "@/components/features/lab/SimPlayer";
 import type { SimCatalog } from "@/components/features/lab/types";
+import { isDemoBuild } from "@/lib/demo";
 
 type View = { kind: "pick" } | { kind: "play"; id: string } | { kind: "compare"; category: string };
 
@@ -45,6 +46,8 @@ export default function LabPage() {
   const c = catalog.data;
   const library = catalog.error ? <ErrorState error={catalog.error} onRetry={catalog.reload} />
     : !c ? <div className="lab-loading"><StrataLoader size="lg" label="Loading the scenario library" /></div>
+    : isDemoBuild && view.kind === "play" ? <RecordedScenario title={c.scenarios.find((scenario) => scenario.id === view.id)?.title ?? "Simulation"} onExit={() => go({ kind: "pick" })} />
+    : isDemoBuild && view.kind === "compare" ? <RecordedScenario title="Scenario comparison" onExit={() => go({ kind: "pick" })} />
     : view.kind === "play" ? <SimPlayer key={view.id} scenarioId={view.id} onExit={() => go({ kind: "pick" })} onCompare={(category) => go({ kind: "compare", category })} />
     : view.kind === "compare" ? <CompareView category={view.category} onBack={() => go({ kind: "pick" })} onOpen={(id) => go({ kind: "play", id })} />
     : <ScenarioPicker catalog={c} industry={industry} onIndustry={setIndustry} onPick={(s) => go({ kind: "play", id: s.id })} />;
@@ -70,8 +73,18 @@ export default function LabPage() {
     >
       <Tabs label="Lab mode" value={tab} onChange={setTab} tabs={[
         { id: "library", label: "Scenario library", content: library },
-        { id: "live", label: "Live loop on today's data", content: <LiveLoop /> },
+        { id: "live", label: "Live loop on today's data", content: isDemoBuild ? <RecordedScenario title="Live loop" onExit={() => setTab("library")} /> : <LiveLoop /> },
       ]} />
     </PageTemplate>
+  );
+}
+
+function RecordedScenario({ title, onExit }: { title: string; onExit: () => void }) {
+  return (
+    <div className="card stack">
+      <h2>{title}</h2>
+      <p>The static site replays the recorded scenario instead of generating a new engine run. Connect the web app to the engine for interactive simulation.</p>
+      <button type="button" className="btn btn--secondary" onClick={onExit}>Back to the scenario library</button>
+    </div>
   );
 }

@@ -43,7 +43,7 @@ export function toRiskLevel(n: number | null | undefined): RiskLevel {
 /** "9 Oct 2026 14:00" on the deadline's own clock (sim time; no timezone shift). */
 function deadlineText(iso: string): string {
   const full = fmtDate(iso, true);
-  return full === "—" ? iso : full;
+  return full === "-" ? iso : full;
 }
 
 /** One plain line: where the decision stands and what the agent will do if nobody decides. */

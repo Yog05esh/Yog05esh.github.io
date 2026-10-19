@@ -13,7 +13,7 @@ sim:
   history_weeks: 104            # two years, so seasonality (S11) has a prior year to learn from
   accounts: 240
   regions: ["Delhi NCR", "Haryana", "Punjab", "UP West", "Rajasthan East", "Uttarakhand"]
-  products_catalog_mode: "generic"   # DEFAULT generic (e.g. "Phosphate binder 800 mg, SKU-CKD-01"). 'catalog' (opt-in) may use up to 8 names from the client's public list for background SKUs ONLY — never in S01, S04, S05, S07 (no fake shortages/quality events/payment stress attached to a real brand).
+  products_catalog_mode: "generic"   # DEFAULT generic (e.g. "Phosphate binder 800 mg, SKU-CKD-01"). 'catalog' (opt-in) may use up to 8 names from the client's public list for background SKUs ONLY - never in S01, S04, S05, S07 (no fake shortages/quality events/payment stress attached to a real brand).
   selector_rank: "rank=N inside a selector = N-th account by baseline 12-week order value, descending, 1-indexed, ties broken by account id"
   noise: "log-normal order noise, weekly seasonality, festival-season index, random account-level drift"
 

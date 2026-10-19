@@ -6,9 +6,9 @@ import { useSimNow } from "./hooks";
 import { simClockText, spanText } from "./time";
 
 const PASSED: Record<string, string> = {
-  auto: "passed — agent decided",
-  provisional: "passed — agent took a provisional step",
-  human_only: "passed — escalated to the Business Head",
+  auto: "passed - agent decided",
+  provisional: "passed - agent took a provisional step",
+  human_only: "passed - escalated to the Business Head",
 };
 
 /**

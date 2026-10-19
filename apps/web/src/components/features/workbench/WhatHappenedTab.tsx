@@ -10,7 +10,7 @@ import { RegionTileMap, type RegionTile } from "@/components/diagrams/RegionTile
 import { EvidenceTab } from "./EvidenceTab";
 import { fmtEvidenceValue, type WbIncident } from "./shared";
 
-/** Tab 1 — What happened: signals vs their own baseline, where the case sits in the channel, the evidence. */
+/** Tab 1 - What happened: signals vs their own baseline, where the case sits in the channel, the evidence. */
 export function WhatHappenedTab({ incident, highlight }: { incident: WbIncident; highlight: string | null }) {
   const accounts = useApi<ListResponse<AccountRow>>("/accounts");
   const items = useMemo<SignalItem[]>(() => incident.evidence.map((e) => {

@@ -10,6 +10,9 @@ import type { PersonaKey } from "@/lib/api/types";
 import { Button } from "@/components/ui/Button";
 import { GoogleButton } from "./GoogleButton";
 import { announce } from "@/components/ui/states";
+import { DemoNotice } from "@/components/DemoNotice";
+import { DEMO_COMPANIES, findDemoJoinCode, isDemoBuild, makeDemoUser, redeemLocalDemoCode } from "@/lib/demo";
+import { supabaseConfigured, supabaseConfigurationMessage } from "@/lib/supabase";
 import {
   CodeInput, DevCodeNote, FormError, PasswordField, PasswordStrength, ROLE_INFO, ResendButton, TextField,
   friendlyError, isEmail, passwordScore, safeNext, stashEmail, useCooldown, withNext,
@@ -85,6 +88,20 @@ export function RegisterFlow() {
   // Live company lookup once 6 characters are in.
   useEffect(() => {
     if (companyCode.length !== 6) { setCompany(null); setLookup("idle"); return; }
+    if (isDemoBuild) {
+      const joinCode = findDemoJoinCode(companyCode);
+      if (joinCode) {
+        const demoCompany = DEMO_COMPANIES[0];
+        setCompany({ code: joinCode.code, name: demoCompany.name, industry: demoCompany.industry });
+        setLookup("found");
+        setRole(joinCode.role);
+        announce(`Demo company found: ${demoCompany.name}.`);
+      } else {
+        setCompany(null);
+        setLookup("missing");
+      }
+      return;
+    }
     const ctrl = new AbortController();
     setLookup("checking");
     const t = window.setTimeout(() => {
@@ -120,6 +137,26 @@ export function RegisterFlow() {
     if (passwordScore(password) < 2) { setError("Use a password of at least 8 characters."); return; }
     if (!role) { setError("Choose your role."); return; }
     setBusy(true); setError(null);
+    if (isDemoBuild) {
+      try {
+        const emailAddress = email.trim().toLowerCase();
+        const redemption = redeemLocalDemoCode(`demo-join-${emailAddress}`, companyCode);
+        const user = makeDemoUser({
+          id: `demo-join-${emailAddress}`,
+          name: name.trim(),
+          email: emailAddress,
+          role: redemption.role,
+          company_id: redemption.companyId,
+        });
+        setSession(`demo-${user.id}`, user);
+        announce(`Joined ${user.company_name} as ${user.role_label}.`);
+        router.replace(next);
+      } catch (err) {
+        setError(friendlyError(err));
+        setBusy(false);
+      }
+      return;
+    }
     try {
       const r = await apiPost<{ status: string; email: string; dev_code?: string }>("/auth/register", registerBody());
       setDevCode(r.dev_code ?? null);
@@ -228,6 +265,8 @@ export function RegisterFlow() {
                 {lookup === "error" ? <span className="auth-lookup__missing">Couldn&apos;t check the code. Is the engine running?</span> : null}
               </div>
             </div>
+            {isDemoBuild && !supabaseConfigured ? <p className="af-hint">{supabaseConfigurationMessage} These listed demo codes work locally in this browser.</p> : null}
+            {isDemoBuild ? <DemoNotice feature="console" codePath="apps/web/src/lib/demo.ts" /> : null}
             <FormError message={error} />
             <Button type="submit" variant="primary" className="auth-btn-block" disabled={lookup !== "found"}>Continue</Button>
             <p className="af-hint auth-center">

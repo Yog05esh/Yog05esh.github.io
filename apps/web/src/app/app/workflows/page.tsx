@@ -78,7 +78,7 @@ function TasksTable({ tasks }: { tasks: ApiState<{ items: Task[] }> }) {
       accessorKey: "incident_ref", header: "Incident",
       cell: (c) => {
         const ref = c.getValue<string | null>();
-        return ref ? <Link className="mono" href={`/app/incidents/${ref}`} onClick={(e) => e.stopPropagation()}>{ref}</Link> : <span className="muted">—</span>;
+        return ref ? <Link className="mono" href={`/app/incidents/${ref}`} onClick={(e) => e.stopPropagation()}>{ref}</Link> : <span className="muted">-</span>;
       },
     },
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +149,7 @@ function DraftCard({ task }: { task: Task }) {
       </div>
       <p style={{ padding: "var(--sp-3) var(--sp-4)", margin: 0, fontSize: "var(--fs-13)", whiteSpace: "pre-wrap", flex: 1 }}>{p.body ?? task.title}</p>
       <div style={{ padding: "var(--sp-2) var(--sp-4)", borderTop: "1px solid var(--line)", background: "var(--surface-2)", fontSize: "var(--fs-12)" }} className="muted">
-        Simulated — not sent
+        Simulated - not sent
       </div>
     </article>
   );

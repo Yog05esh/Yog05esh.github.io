@@ -30,7 +30,7 @@ function median(xs: number[]): number {
 /**
  * Normal spread around the account's own baseline, computed from the weeks before the estimated onset
  * (1.4826 × median absolute deviation from baseline ≈ one standard deviation for normal data).
- * Returns null when there are too few pre-onset weeks or no spread — the chart then shows only the dashed baseline.
+ * Returns null when there are too few pre-onset weeks or no spread - the chart then shows only the dashed baseline.
  */
 export function normalSpread(s: SignalSeries, onset: string | null | undefined): number | null {
   const pre = onset ? s.values.filter((_, i) => s.labels[i] < onset) : s.values.slice(0, Math.max(0, s.values.length - 4));

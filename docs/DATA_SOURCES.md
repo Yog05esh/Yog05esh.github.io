@@ -22,8 +22,8 @@ Do not import any data before a human reviews its license, permitted use, privac
 
 ## Sources to inspect online
 
-- [UCI Machine Learning Repository — Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail)
-- [Kaggle — Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+- [UCI Machine Learning Repository - Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail)
+- [Kaggle - Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 - [data.gov](https://data.gov/)
 - [World Bank Open Data](https://data.worldbank.org/)
 

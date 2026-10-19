@@ -199,7 +199,7 @@ class Gen:
     def season(self, d: date) -> float:
         doy = d.timetuple().tm_yday
         s = 1.0 + 0.04 * np.sin(2 * np.pi * (doy - 60) / 365.25)
-        # festival-season dip (S11 decoy) — same calendar window every year: 25 Sep .. 9 Oct
+        # festival-season dip (S11 decoy) - same calendar window every year: 25 Sep .. 9 Oct
         md = (d.month, d.day)
         if (9, 25) <= md <= (10, 9):
             s *= 0.85
@@ -360,7 +360,7 @@ class Gen:
                     occ = datetime.combine(ws + timedelta(days=int(r.integers(0, 7))), datetime.min.time()) + timedelta(hours=float(r.uniform(9, 18)))
                     rows.append((aid, occ, kind, int(a["rep_id"]), pid, int(r.integers(5, 45))))
         df = pd.DataFrame(rows, columns=["account_id", "occurred_at", "kind", "rep_id", "prescriber_id", "duration_min"])
-        # S06: hospital — nephrologist visits stop for the last 61 days
+        # S06: hospital - nephrologist visits stop for the last 61 days
         df = df[~((df["account_id"] == self.s06) & (df["prescriber_id"].notna()) &
                   (df["occurred_at"] >= datetime.combine(D0 - timedelta(days=61), datetime.min.time())))]
         df = df.sort_values("occurred_at").reset_index(drop=True)

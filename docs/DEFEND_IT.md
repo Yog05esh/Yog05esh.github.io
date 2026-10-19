@@ -1,4 +1,4 @@
-# DEFEND IT — one paragraph per built feature (read before pitching; cut anything you cannot explain)
+# DEFEND IT - one paragraph per built feature (read before pitching; cut anything you cannot explain)
 
 **Synthetic data estate.** `data/generator.py` builds 240 fictional B2B accounts over 104 weeks: orders, tickets, complaints, CRM touches, warehouse stock and receivables. It plants scenarios S01 and S04–S12 from `contracts/scenarios.yaml` and writes ground truth to `eval_labels.json`, which the engine never reads. Limits: weekly order grain; S02/S03 not planted; the hero's complaint and touchpoint totals are designed relative to that account's own baseline.
 

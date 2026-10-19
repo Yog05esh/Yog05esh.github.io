@@ -23,9 +23,9 @@ export function ModeChip({ health, error }: { health: Health | null; error: Erro
 }
 
 export function SimClock({ simNow }: { simNow: string | null | undefined }) {
-  const full = simNow ? fmtDate(simNow, true) : "—";
+  const full = simNow ? fmtDate(simNow, true) : "-";
   // compact form (no year) keeps the bar readable; the full date is in the tooltip
-  const short = simNow ? full.replace(/ \d{4} /, " ") : "—";
+  const short = simNow ? full.replace(/ \d{4} /, " ") : "-";
   return <span className="chip chip--mono topbar__hide-md" title={`Simulated clock used by all data logic: ${full}`}>Sim {short}</span>;
 }
 

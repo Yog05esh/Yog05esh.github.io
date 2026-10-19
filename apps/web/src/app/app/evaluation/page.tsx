@@ -52,7 +52,7 @@ const RESULT_LABEL: Record<ResultKind, string> = {
 };
 
 function ResultCell({ s }: { s: Scenario | undefined }) {
-  if (!s) return <span className="muted">—</span>;
+  if (!s) return <span className="muted">-</span>;
   const r = resultOf(s);
   if (r === "miss" || r === "false_alarm") {
     return <span style={{ color: "var(--crimson-700)", fontWeight: 600 }}>{r === "miss" ? "MISS (not detected)" : "False alarm (decoy flagged)"}</span>;
@@ -61,9 +61,9 @@ function ResultCell({ s }: { s: Scenario | undefined }) {
   return <span style={{ color: "var(--green-700)" }}>{RESULT_LABEL[r]}</span>;
 }
 
-/** Words, not colour: Yes / No / — (not applicable). */
+/** Words, not colour: Yes / No / - (not applicable). */
 function mlText(s: Scenario | undefined): string {
-  if (!s || s.if_flagged === null || s.if_flagged === undefined || resultOf(s) === "cut") return "—";
+  if (!s || s.if_flagged === null || s.if_flagged === undefined || resultOf(s) === "cut") return "-";
   return s.if_flagged ? "Yes" : "No";
 }
 
@@ -97,19 +97,19 @@ function RunSection({ run, defaultOpen }: { run: Run; defaultOpen: boolean }) {
         accessorKey: "detected", header: "Detected",
         cell: (c) => {
           const s = c.row.original;
-          if (resultOf(s) === "cut") return <span className="muted">—</span>;
+          if (resultOf(s) === "cut") return <span className="muted">-</span>;
           return s.detected ? (
             <span className="row" style={{ flexWrap: "wrap" }}>Yes{s.incidents.map((ref) => <Link key={ref} className="mono" href={`/app/incidents/${ref}`} onClick={(e) => e.stopPropagation()}>{ref}</Link>)}</span>
           ) : "No";
         },
       },
-      { accessorKey: "severity", header: "Severity", cell: (c) => { const v = c.getValue<Severity | null>(); return v ? <SeverityPill severity={v} /> : <span className="muted">—</span>; } },
+      { accessorKey: "severity", header: "Severity", cell: (c) => { const v = c.getValue<Severity | null>(); return v ? <SeverityPill severity={v} /> : <span className="muted">-</span>; } },
       {
         id: "cause", header: "Cause vs truth",
         cell: (c) => {
           const s = c.row.original;
           if (resultOf(s) === "cut") return <span className="muted">truth: {humanize(s.truth_cause)}</span>;
-          if (!s.cause && !s.truth_cause) return <span className="muted">—</span>;
+          if (!s.cause && !s.truth_cause) return <span className="muted">-</span>;
           return (
             <span>
               {s.cause ? humanize(s.cause) : "none"} <span className="muted">vs</span> {s.truth_cause ? humanize(s.truth_cause) : "none"}
@@ -119,7 +119,7 @@ function RunSection({ run, defaultOpen }: { run: Run; defaultOpen: boolean }) {
         },
       },
       { id: "result", header: "Result", accessorFn: (s) => RESULT_LABEL[resultOf(s)], cell: (c) => <ResultCell s={c.row.original} /> },
-      { id: "ml", header: "ML also flagged?", accessorFn: (s) => mlText(s), meta: { help: "IsolationForest corroboration only; it never decides detection. — = not applicable (region or portfolio scope, or not planted)." } },
+      { id: "ml", header: "ML also flagged?", accessorFn: (s) => mlText(s), meta: { help: "IsolationForest corroboration only; it never decides detection. - = not applicable (region or portfolio scope, or not planted)." } },
     ];
   }, []);
 
@@ -216,7 +216,7 @@ export default function EvaluationPage() {
     { accessorKey: "title", header: "Scenario" },
     { id: "a", header: "Seed A (tuned)", accessorFn: (r) => (r.a ? RESULT_LABEL[resultOf(r.a)] : ""), cell: (c) => <ResultCell s={c.row.original.a} /> },
     { id: "b", header: "Hold-out B", accessorFn: (r) => (r.b ? RESULT_LABEL[resultOf(r.b)] : ""), cell: (c) => <ResultCell s={c.row.original.b} /> },
-    { id: "ml", header: "ML also flagged? (B)", accessorFn: (r) => mlText(r.b), meta: { help: "IsolationForest corroboration on hold-out B. Yes / No / — (not applicable)." } },
+    { id: "ml", header: "ML also flagged? (B)", accessorFn: (r) => mlText(r.b), meta: { help: "IsolationForest corroboration on hold-out B. Yes / No / - (not applicable)." } },
   ], []);
 
   const title = "Evaluation";

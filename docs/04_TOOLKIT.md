@@ -1,6 +1,6 @@
-# Toolkit — what to use, for what, and what I did *not* verify
+# Toolkit - what to use, for what, and what I did *not* verify
 
-Rule: use the smallest set that makes the build faster and the demo safer. Anything marked **(verify)** I could not confirm for your exact install/version — check before relying on it.
+Rule: use the smallest set that makes the build faster and the demo safer. Anything marked **(verify)** I could not confirm for your exact install/version - check before relying on it.
 
 ## 1. Who does what
 
@@ -14,7 +14,7 @@ Rule: use the smallest set that makes the build faster and the demo safer. Anyth
 | **Gamma** (connected here) | Pitch deck polish after the prototype is stable | Your own deck stays the source; don't introduce new claims |
 | **Figma** (plugin available here) | Only if the mentor names a tool you want to mimic and you want a quick token extraction | Optional |
 
-## 2. Libraries (install the latest stable at install time; pin exact versions in lockfiles — I did not pin versions for you)
+## 2. Libraries (install the latest stable at install time; pin exact versions in lockfiles - I did not pin versions for you)
 
 **Web:** Next.js (App Router) + TypeScript strict · Tailwind CSS configured to read CSS variables only · Radix UI primitives (behaviour only) · TanStack Table + TanStack Query · Apache ECharts · React Flow (`@xyflow/react`) · `cmdk` (command palette) · Tabler Icons · `zod` · `openapi-typescript` (generated API client) · `next/font` for Poppins / IBM Plex Sans / IBM Plex Mono.
 *Deliberately not used:* default shadcn theme, default Recharts look, Lucide-sparkle "AI" iconography, Framer-heavy motion. They are what AI-generated frontends look like.
@@ -28,7 +28,7 @@ Rule: use the smallest set that makes the build faster and the demo safer. Anyth
 
 **AI:** optional. One chat-capable LLM API and one embeddings API, selected by env vars; no model names hard-coded. With no keys the prototype runs in `LLM_PROVIDER=none` mode (deterministic cited output, TF-IDF retrieval). Which keys do you have? **[UNKNOWN]**.
 
-## 3. MCP servers / plugins worth connecting to Codex **(verify configuration syntax for your Codex version — it is typically `~/.codex/config.toml`)**
+## 3. MCP servers / plugins worth connecting to Codex **(verify configuration syntax for your Codex version - it is typically `~/.codex/config.toml`)**
 
 | MCP / plugin | Why | Priority |
 |---|---|---|
@@ -42,12 +42,12 @@ I did not install or test any of these in your environment.
 
 ## 4. Claude-side capabilities available to us in this workspace (for gates and Phase 5)
 - **Supabase connector** (create project/migrations/SQL/logs/advisors) and **Vercel connector** (project, env vars, deploy, logs): used in Phase 5.
-- **Browser tools**: I can open the running app, screenshot pages, and critique design/accessibility — ask me after each pass.
+- **Browser tools**: I can open the running app, screenshot pages, and critique design/accessibility - ask me after each pass.
 - **Skills available here**: design critique, accessibility review, system-design/architecture review, testing strategy, deploy checklist, code review. I will use them in the review passes.
 - I cannot log into the hackathon dashboard (SRM-email login). Paste the rubric/judging text if it appears there.
 
 ## 5. Machine prerequisites (your Windows PC)
-- Node.js LTS and npm, Python 3.12, Git — **check what is installed**: your device lists `.bun`, Arduino/STM tooling, VS Code, VirtualBox, `.streamlit` (suggesting Python) but I have not confirmed Node/Python/Git versions.
+- Node.js LTS and npm, Python 3.12, Git - **check what is installed**: your device lists `.bun`, Arduino/STM tooling, VS Code, VirtualBox, `.streamlit` (suggesting Python) but I have not confirmed Node/Python/Git versions.
 - Optional: Docker Desktop (needs WSL2/virtualisation; **unknown** if it works alongside your VirtualBox setup). The prototype does **not** need Docker or Postgres: default `STRATA_STORE=file` (Parquet + sqlite + numpy). PostgreSQL/pgvector is added only if time allows and is claimed in the pitch only if its tests pass.
 - Fonts download via `next/font` at build; do the first `npm run build` while online.
 - Create `.env` from `.env.example`; never commit it.

@@ -57,7 +57,7 @@ export default function HealthPage() {
     { id: "label", accessorKey: "label", header: "Signal" },
     { id: "delta", accessorKey: "delta", header: "Change vs normal", meta: { numeric: true }, cell: (c) => fmtPct(c.row.original.delta) },
     { id: "severity", accessorKey: "severity", header: "Severity", cell: (c) => <SeverityPill severity={c.row.original.severity} /> },
-    { id: "ref", accessorKey: "ref", header: "Incident", cell: (c) => (c.row.original.ref ? <Link href={`/app/incidents/${c.row.original.ref}`}>{c.row.original.ref}</Link> : "—") },
+    { id: "ref", accessorKey: "ref", header: "Incident", cell: (c) => (c.row.original.ref ? <Link href={`/app/incidents/${c.row.original.ref}`}>{c.row.original.ref}</Link> : "-") },
   ];
   const mixCols: ColumnDef<MixRow>[] = [
     { id: "label", accessorKey: "label", header: "Account type" },

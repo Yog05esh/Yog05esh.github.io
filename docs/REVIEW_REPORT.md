@@ -1,4 +1,4 @@
-# REVIEW REPORT — STRATA prototype (STOP point: waiting for Arihant / Yogesh)
+# REVIEW REPORT - STRATA prototype (STOP point: waiting for Arihant / Yogesh)
 
 Built on 9 Oct 2026, 12:07–15:00 IST, by Claude (orchestrator) plus parallel subagents (web shell, page builders, memory content, QA). Scope: **Core+** (see PLAN.md). Nothing is deployed, there is no Google auth, and nothing is sent externally.
 
@@ -73,7 +73,7 @@ See OWNERSHIP_LEDGER.md. Built: A1, A2, A3, A4, A7, A10, A11, A12-lite, A13, A14
 4. Risk Register: Alert Budget banner; open **INC-2026-0001** (#4821, critical 100).
 5. Workbench → Evidence: the four deltas with sparklines and the SKU-CKD-01 stock cover; Blast Radius of 6.
 6. Agent trace → **Run investigation**: 4 steps, validator passed, narrative with chips; Memory tab: INC-017 breakdown.
-7. Plan tab: SOP-01 + INC-017 steps, WhatsApp and email drafts marked "Simulated — not sent". **Approve** (try Reject first: it needs a reason).
+7. Plan tab: SOP-01 + INC-017 steps, WhatsApp and email drafts marked "Simulated - not sent". **Approve** (try Reject first: it needs a reason).
 8. Workflows: tasks and simulated outbox; Standing Routines → approve RT01–RT04.
 9. Simulation Lab: **Advance 14 days** → Outcomes (illustrative) → Memory shows OUT-INC-2026-0001; Time-to-Action shows your measured seconds; Audit Trail: chain verified.
 10. Lab: **Inject stale + duplicated orders feed** → Sources shows the data-quality notice; then **Reset**.

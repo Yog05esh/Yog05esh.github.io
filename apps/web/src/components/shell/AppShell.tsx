@@ -8,8 +8,23 @@ import { CommandPalette } from "./CommandPalette";
 import { NAV_ITEMS } from "./nav";
 import { GuidedBar, GuidedProvider, useGuided } from "@/components/features/guided";
 import { AssistantDock } from "@/components/features/assistant";
+import { DemoNotice, DEMO_FEATURES, FeatureHowItWorks } from "@/components/DemoNotice";
 
 const COLLAPSE_KEY = "strata.sidebar.collapsed";
+
+function featureForPath(pathname: string): keyof typeof DEMO_FEATURES {
+  if (pathname.startsWith("/app/incidents")) return "detection";
+  if (pathname.startsWith("/app/cases")) return "investigation";
+  if (pathname.startsWith("/app/lab")) return "simulation-lab";
+  if (pathname.startsWith("/app/briefing")) return "assistant";
+  if (pathname.startsWith("/app/agents") || pathname.startsWith("/app/approvals")) return "orchestrator";
+  if (pathname.startsWith("/app/sources") || pathname.startsWith("/app/signals")) return "signals";
+  if (pathname.startsWith("/app/memory")) return "memory";
+  if (pathname.startsWith("/app/audit")) return "audit";
+  if (pathname.startsWith("/app/evaluation")) return "evidence-or-silence";
+  if (pathname.startsWith("/app/workflows") || pathname.startsWith("/app/outcomes")) return "routines";
+  return "console";
+}
 
 function isTypingTarget(t: EventTarget | null): boolean {
   if (!(t instanceof HTMLElement)) return false;
@@ -28,6 +43,7 @@ function ShellFrame({ children }: { children: React.ReactNode }) {
   const guided = useGuided();
   const router = useRouter();
   const pathname = usePathname() ?? "/app";
+  const feature = featureForPath(pathname);
   const [collapsed, setCollapsed] = useState(false);
   const [palette, setPalette] = useState(false);
   const gPending = useRef<number | null>(null);
@@ -74,7 +90,11 @@ function ShellFrame({ children }: { children: React.ReactNode }) {
         <TopBar onOpenPalette={() => setPalette(true)} />
         <main id="main" className="shell__content" tabIndex={-1}>
           {/* keyed on the route: a quiet fade + 6px rise on every page change (instant with reduced motion) */}
-          <div className="shell__inner page-enter" key={pathname}>{children}</div>
+          <div className="shell__inner page-enter" key={pathname}>
+            {children}
+            <DemoNotice feature={feature} codePath={DEMO_FEATURES[feature].codePath} />
+            <FeatureHowItWorks feature={feature} />
+          </div>
         </main>
       </div>
       <GuidedBar />

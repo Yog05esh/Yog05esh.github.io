@@ -6,7 +6,7 @@ import { CausalMap } from "./CausalMap";
 import { MemoryTab } from "./MemoryTab";
 import type { WbIncident } from "./shared";
 
-/** Tab 2 — Why and what we did last time: agent steps, cited narrative, hypotheses, causal map, memory. */
+/** Tab 2 - Why and what we did last time: agent steps, cited narrative, hypotheses, causal map, memory. */
 export function WhyTab({ incident, onChanged, onChip }: { incident: WbIncident; onChanged: () => void; onChip: (id: string) => void }) {
   const inv = incident.investigation;
   if (!inv) return <div className="stack case-tab"><AgentTrace incident={incident} onChanged={onChanged} onChip={onChip} /></div>;

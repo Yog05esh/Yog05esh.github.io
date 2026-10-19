@@ -115,7 +115,7 @@ function DetectedStage({ inc, highlight }: StageProps) {
           provenance="computed"
         />
         <Metric
-          id="silent_period_days" label="Silent period" value={inc.silent_period_days != null ? fmtNum(inc.silent_period_days, 0) : "—"} unit="days"
+          id="silent_period_days" label="Silent period" value={inc.silent_period_days != null ? fmtNum(inc.silent_period_days, 0) : "-"} unit="days"
           compare={`Onset ${fmtDate(inc.onset_estimated_at)} · detected ${fmtDate(inc.first_detected_at)} (simulated)`}
           meaning={inc.silent_period_basis || "Days the problem existed before a weekly manual review would have caught it."}
           implication="Roughly how much earlier STRATA surfaced it."

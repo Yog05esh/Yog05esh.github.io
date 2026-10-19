@@ -6,7 +6,7 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 
 ---
 
-## LANE 1 — data (synthetic estate)
+## LANE 1 - data (synthetic estate)
 
 **Owns:** `data/**` (except `data/memory_seed/**` and `data/snapshots/**`) · **Reads:** `contracts/schema.sql`, `contracts/scenarios.yaml`
 
@@ -18,21 +18,21 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 3. Plant scenarios **S01–S12** exactly as in `scenarios.yaml` (S13 is created only by `data/lab_injectors.py` on a copy of the state); effect sizes are parameters; the hero plateaus for the last 28 days so the 4-week window equals the plateau effect and the hero deltas **emerge** (−31 % orders, +47 % complaints, +22 % response, −40 % interactions over the last 4 weeks vs baseline). Do not special-case the engine; only the data changes.
 4. Write `eval_labels` from the scenario list. The engine must never read `scenarios.yaml` or `eval_labels` (enforced by a test in `tests/`).
 5. Two seeds: `seed_dev` (20261009) and `seed_holdout` (20261010). `npm run seed -- --seed dev|holdout --target postgres|snapshot`.
-6. Product naming mode `generic|catalog`, **default `generic`**: `catalog` (opt-in) may use **at most 8** names from the client's *public* catalogue (e.g. Altysev DT 400, Liporen, AddNut HP, Criticut DS, Prumia Gel, TR Aldosis, CilniCCB, DeliDAPA — confirm spellings on the client's public website) for background SKUs only — **never** in S01, S04, S05, S07 — with synthetic numbers and `naming_source='catalog_name_synthetic_numbers'`. Account/rep/prescriber names: clearly fictional, no real people or companies.
+6. Product naming mode `generic|catalog`, **default `generic`**: `catalog` (opt-in) may use **at most 8** names from the client's *public* catalogue (e.g. Altysev DT 400, Liporen, AddNut HP, Criticut DS, Prumia Gel, TR Aldosis, CilniCCB, DeliDAPA - confirm spellings on the client's public website) for background SKUs only - **never** in S01, S04, S05, S07 - with synthetic numbers and `naming_source='catalog_name_synthetic_numbers'`. Account/rep/prescriber names: clearly fictional, no real people or companies.
 7. `data/lab_injectors.py`: pure functions that generate NEW rows for Lab templates (hero-like supplier delay, batch cluster, payment stress, stale/duplicated feed = S13, rep vacancy). They are a data source, not detection logic.
 8. Memory seed is the **agents** lane's job; do not author it here.
 
 **Acceptance**
 - Re-running with the same seed yields byte-identical CSV/Parquet outputs (hash check test).
 - Row counts in plausible ranges; no FK violations; schema loads.
-- Planted effect sizes verified by direct pandas calculation in a test (not by the engine). The hero's realised 4-week deltas on `seed_dev` must be within 0.08 of targets using the *natural* RNG stream — if not, adjust effect-size parameters (documented), never the seed.
+- Planted effect sizes verified by direct pandas calculation in a test (not by the engine). The hero's realised 4-week deltas on `seed_dev` must be within 0.08 of targets using the *natural* RNG stream - if not, adjust effect-size parameters (documented), never the seed.
 - README snippet `data/README.md`: how to regenerate, how seeds work, a **"this data is synthetic"** paragraph.
 
 **Do not:** copy any real sales data, use real person names, or embed hard-coded engine outputs.
 
 ---
 
-## LANE 2 — engine (signals, scoring, incidents, API)
+## LANE 2 - engine (signals, scoring, incidents, API)
 
 **Owns:** `services/engine/**` except `agents/` · **Reads:** `contracts/signal_catalog.yaml`, `contracts/engagement_rules.yaml`, schema, Blueprint §8
 
@@ -65,7 +65,7 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 
 ---
 
-## LANE 3 — agents (investigation, memory, grounding)
+## LANE 3 - agents (investigation, memory, grounding)
 
 **Owns:** `services/engine/agents/**`, `data/memory_seed/**`, LLM/embedding adapters · **Reads:** Blueprint §9, `memory_items` schema
 
@@ -93,14 +93,14 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 
 ---
 
-## LANE 4 — web-shell (design system and chrome)
+## LANE 4 - web-shell (design system and chrome)
 
 **Owns:** `apps/web/src/{app/layout*, components/shell, components/ui, styles, lib/theme}/**` · **Reads:** `design-tokens.css`, Blueprint §10
 
 **Objective:** an enterprise shell that does not look AI-generated, built so that re-skinning is a one-file change.
 
 **Tasks**
-1. Next.js App Router layout; self-hosted fonts via `next/font` (Poppins, IBM Plex Sans, IBM Plex Mono); `tokens.css` imported once; Tailwind (if used) configured *only* to read CSS variables — no hex literals; lint rule enforces it.
+1. Next.js App Router layout; self-hosted fonts via `next/font` (Poppins, IBM Plex Sans, IBM Plex Mono); `tokens.css` imported once; Tailwind (if used) configured *only* to read CSS variables - no hex literals; lint rule enforces it.
 2. `Sidebar`: sections COMMAND / OBSERVE / DETECT / INVESTIGATE / REMEMBER / ACT / ASSURE / LAB exactly as Blueprint §10.4; 36 px items; active item gets a 3 px crimson left rule; collapse to 56 px with tooltips; items filtered by feature flags and persona; `g`+letter shortcuts; `Ctrl K` command palette (cmdk).
 3. `TopBar`: page title + the question line, `SyntheticBadge` (always), `ModeChip` (live/replay), `PersonaSwitcher` (Ops, Account, Sales, Support, Business Head, QA Head; stored in a cookie; later maps to Supabase roles).
 4. Primitives: `Button` (primary/secondary/ghost/danger), `Pill`/`SeverityPill` (dot + label + colour), `Tabs`, `Dialog`, `Drawer`, `Tooltip`, `DataTable` (TanStack, compact toggle, sticky header; required props `provenance` and `caption`, column-definition tooltips), `Skeleton`, `EmptyState`, `ErrorState`. Radix primitives allowed for behaviour; all styling through tokens.
@@ -110,13 +110,13 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 8. Motion utilities: 120/160/220 ms tokens; count-up (once, ≤400 ms); reduced-motion respected.
 9. Accessibility: focus ring token, skip link, landmarks, ARIA for sidebar and tabs, status never colour-only.
 
-**Acceptance:** a unit test recomputes WCAG contrast for every text/background pair in tokens.css (≥ 4.5:1) and fails on regression; Storybook-less is fine — a `/app/_kit` route (flagged dev-only) renders every primitive for screenshots; axe 0 serious issues; keyboard navigation through sidebar/tabs/dialogs works; a "one-file re-skin" test swaps tokens.css for an alternate palette and confirms no component hard-codes colour.
+**Acceptance:** a unit test recomputes WCAG contrast for every text/background pair in tokens.css (≥ 4.5:1) and fails on regression; Storybook-less is fine - a `/app/_kit` route (flagged dev-only) renders every primitive for screenshots; axe 0 serious issues; keyboard navigation through sidebar/tabs/dialogs works; a "one-file re-skin" test swaps tokens.css for an alternate palette and confirms no component hard-codes colour.
 
 **Do not:** use gradients, glow, emoji, sparkle icons, rounded bubble components, default shadcn look.
 
 ---
 
-## LANE 5 — web-features (pages)
+## LANE 5 - web-features (pages)
 
 **Owns:** `apps/web/src/app/page.tsx` (landing), `apps/web/src/app/app/**` (every console page; URL prefix `/app`; the shell lane owns `app/app/layout.tsx`), `apps/web/src/components/features/**` · **Reads:** Blueprint §10.2–10.5
 
@@ -140,7 +140,7 @@ Common preamble for every lane (prepend): *"Read AGENTS.md and docs/01_BLUEPRINT
 
 ---
 
-## LANE 6 — qa (tests, honesty-lint, demo tooling)
+## LANE 6 - qa (tests, honesty-lint, demo tooling)
 
 **Owns:** `tests/e2e/**`, `tests/shared/**`, `scripts/lint-*`, CI scripts · **Reads:** everything, writes nothing outside its paths (other lanes keep their unit tests in `tests/<lane>/**`; qa reviews them and fails the gate on skipped/weakened tests)
 
